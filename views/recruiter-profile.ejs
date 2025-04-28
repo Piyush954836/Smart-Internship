@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruiter Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-r from-green-300 via-blue-400 to-purple-400 text-gray-800 flex flex-col items-center justify-center min-h-screen duration-300">
+
+    <!-- Navbar -->
+    <nav class="bg-gray-100 text-black shadow-md px-6 py-4 flex justify-between items-center fixed w-full top-0">
+        <h1 class="text-xl font-bold">Recruiter Dashboard</h1>
+        
+        <div class="flex items-center space-x-4">
+            <!-- Profile Dropdown -->
+            <div class="relative">
+                <button id="profileBtn" class="flex items-center space-x-2 bg-white px-4 py-2 rounded-lg shadow-md hover:bg-gray-600 transition-all">
+                    <% if (recruiter.profilePicture && recruiter.profilePicture.data) { %>
+                        <img src="data:<%= recruiter.profilePicture.contentType %>;base64,<%= recruiter.profilePicture.data.toString('base64') %>" 
+                             alt="Profile" class="w-8 h-8 rounded-full">
+                    <% } else { %>
+                        <img src="/images/default-profile.png" alt="Default Profile" class="w-8 h-8 rounded-full">
+                    <% } %>
+                    <span><%= recruiter.fullName %></span>
+                </button>
+                
+                <!-- Dropdown Menu -->
+                <div id="profileDropdown" class="hidden absolute right-0 mt-2 w-40 bg-gray-700 text-white shadow-lg rounded-lg overflow-hidden">
+                    <a href="/recruiter/complete-recruiterprofile" class="block px-4 py-2 hover:bg-gray-600">Complete Profile</a>
+                    <a href="/recruiter/create" class="block px-4 py-2 hover:bg-gray-600">Create Internship</a>
+                    <a href="/recruiter/logout" class="block px-4 py-2 hover:bg-red-600">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Profile Card -->
+    <div class="flex justify-center items-center h-screen">
+        <div class="bg-white shadow-lg rounded-lg p-6 w-96 text-center">
+            <% if (recruiter.profilePicture && recruiter.profilePicture.data) { %>
+                <img src="data:<%= recruiter.profilePicture.contentType %>;base64,<%= recruiter.profilePicture.data.toString('base64') %>" 
+                     alt="Profile Picture" class="w-28 h-28 rounded-full border-4 border-blue-500 mx-auto mb-4">
+            <% } else { %>
+                <img src="/images/default-profile.png" alt="Default Profile Picture" class="w-28 h-28 rounded-full border-4 border-blue-500 mx-auto mb-4">
+            <% } %>
+            
+            <h2 class="text-2xl font-bold"><%= recruiter.fullName %></h2>
+            <p class="text-lg text-gray-600"><%= recruiter.email %></p>
+            <p class="text-green-600 font-semibold mt-2">Joined on: <%= new Date(recruiter.createdAt).toDateString() %></p>
+
+            <% if (recruiter.companyName) { %>
+                <div class="mt-4 text-left">
+                    <p><strong>Company Name:</strong> <%= recruiter.companyName %></p>
+                    <p><strong>Website:</strong> <a href="<%= recruiter.companyWebsite %>" class="text-blue-600 underline"><%= recruiter.companyWebsite %></a></p>
+                    <p><strong>Address:</strong> <%= recruiter.companyAddress %></p>
+                    <p><strong>Industry:</strong> <%= recruiter.companyIndustry %></p>
+                    <p><strong>Description:</strong> <%= recruiter.companyDescription %></p>
+                    <p><strong>Registration Number:</strong> <%= recruiter.companyRegistrationNumber %></p>
+                    <p><strong>LinkedIn:</strong> <a href="<%= recruiter.linkedIn %>" class="text-blue-600 underline"><%= recruiter.linkedIn %></a></p>
+                    <p><strong>Business Email:</strong> <%= recruiter.businessEmail %></p>
+                </div>
+            <% } else { %>
+                <p class="text-red-500 font-semibold mt-4">Your profile is incomplete. <a href="/recruiter/complete-recruiterprofile" class="text-blue-600 underline">Complete it now</a>.</p>
+            <% } %>
+
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const profileBtn = document.getElementById("profileBtn");
+            const profileDropdown = document.getElementById("profileDropdown");
+
+            // Profile Dropdown Toggle
+            profileBtn.addEventListener("click", function () {
+                profileDropdown.classList.toggle("hidden");
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener("click", function (event) {
+                if (!profileBtn.contains(event.target) && !profileDropdown.contains(event.target)) {
+                    profileDropdown.classList.add("hidden");
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

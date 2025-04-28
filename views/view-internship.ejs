@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internships</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-r from-blue-400 to-purple-500 flex items-center justify-center min-h-screen p-4">
+    <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-3xl">
+        <h2 class="text-3xl font-extrabold text-gray-800 mb-6">Internship Listings</h2>
+
+        <% if (internships.length === 0) { %>
+            <p class="text-gray-600">No internships posted yet.</p>
+        <% } else { %>
+            <div class="space-y-4">
+                <% internships.forEach(internship => { %>
+                    <div class="p-4 border rounded-lg shadow-sm bg-gray-100">
+                        <h3 class="text-xl font-semibold"><%= internship.position %> at <%= internship.companyName %></h3>
+                        <p><strong>Location:</strong> <%= internship.location %></p>
+                        <p><strong>Duration:</strong> <%= internship.duration %></p>
+                        <p><strong>Stipend:</strong> <%= internship.stipend || "Not Provided" %></p>
+                        <p><strong>Requirements:</strong> <%= internship.requirements %></p>
+                        <p><strong>Description:</strong> <%= internship.description %></p>
+                        <a href="<%= internship.applyLink %>" target="_blank" class="text-blue-600 underline">Apply Here</a>
+                    </div>
+                <% }); %>
+            </div>
+        <% } %>
+    </div>
+</body>
+</html>

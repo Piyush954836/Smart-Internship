@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internship Details</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-r from-blue-400 to-purple-500 flex items-center justify-center min-h-screen p-4">
+    <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-lg">
+        <h2 class="text-3xl font-extrabold text-gray-800 mb-6 flex items-center">
+            <svg class="w-8 h-8 text-blue-500 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 1.104-.896 2-2 2s-2-.896-2-2 .896-2 2-2 2 .896 2 2z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11V6m-6 9v2m0-6v2m12-2v2m0-6v2m-6 8h.01"/>
+            </svg>
+            Upload Internship Details
+        </h2>
+        <form id="internship-form" action="/internship/upload" method="POST" class="space-y-4">
+            <div>
+                <label for="company-name" class="block text-sm font-medium text-gray-700">Company Name:</label>
+                <input type="text" id="company-name" name="companyName" required class="w-full p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500">
+            </div>
+            
+            <div>
+                <label for="position" class="block text-sm font-medium text-gray-700">Position:</label>
+                <input type="text" id="position" name="position" required class="w-full p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500">
+            </div>
+            
+            <div>
+                <label for="location" class="block text-sm font-medium text-gray-700">Location:</label>
+                <input type="text" id="location" name="location" required class="w-full p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500">
+            </div>
+            
+            <div>
+                <label for="duration" class="block text-sm font-medium text-gray-700">Duration:</label>
+                <input type="text" id="duration" name="duration" required class="w-full p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500">
+            </div>
+            
+            <div>
+                <label for="stipend" class="block text-sm font-medium text-gray-700">Stipend (if any):</label>
+                <input type="text" id="stipend" name="stipend" class="w-full p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500">
+            </div>
+            
+            <div>
+                <label for="requirements" class="block text-sm font-medium text-gray-700">Requirements:</label>
+                <textarea id="requirements" name="requirements" required class="w-full p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500"></textarea>
+            </div>
+            
+            <div>
+                <label for="description" class="block text-sm font-medium text-gray-700">Job Description:</label>
+                <textarea id="description" name="description" required class="w-full p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500"></textarea>
+            </div>
+            
+            <div>
+                <label for="apply-link" class="block text-sm font-medium text-gray-700">Application Link/Email:</label>
+                <input type="text" id="apply-link" name="applyLink" required class="w-full p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500">
+            </div>
+            
+            <button type="submit" class="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white p-3 rounded-lg hover:shadow-lg transform hover:scale-105 transition duration-300">
+                Submit Internship
+            </button>
+        </form>
+        
+    </div>
+
+</body>
+</html>

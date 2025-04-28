@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommended Internships</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Recommended Internships</h1>
+        
+        <% if (internships.length > 0) { %>
+            <div class="internship-list">
+                <% internships.forEach(internship => { %>
+                    <div class="internship-card">
+                        <h2><%= internship.title %></h2>
+                        <p><strong>Company:</strong> <%= internship.company %></p>
+                        <p><strong>Location:</strong> <%= internship.location %></p>
+                        <p><strong>Stipend:</strong> <%= internship.stipend ? `₹${internship.stipend}` : 'Unpaid' %></p>
+                        <p><strong>Duration:</strong> <%= internship.duration %> months</p>
+                        <p><strong>Requirements:</strong> <%= internship.requirements.join(', ') %></p>
+                        <a href="/internships/apply/<%= internship._id %>" class="apply-btn">Apply Now</a>
+                    </div>
+                <% }); %>
+            </div>
+        <% } else { %>
+            <p>No internships found matching your preferences.</p>
+        <% } %>
+    </div>
+</body>
+</html>

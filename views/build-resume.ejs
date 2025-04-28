@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>AI Resume Builder</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        function addField(sectionId, namePrefix, placeholderArray) {
+            const container = document.getElementById(sectionId);
+            const div = document.createElement("div");
+            div.classList.add("flex", "gap-2", "mb-2");
+
+            placeholderArray.forEach((placeholder, index) => {
+                const input = document.createElement("input");
+                input.type = "text";
+                input.name = `${namePrefix}[]`;
+                input.placeholder = placeholder;
+                input.classList.add("border", "p-2", "w-full", "rounded-md");
+                div.appendChild(input);
+            });
+
+            container.appendChild(div);
+        }
+    </script>
+</head>
+<body class="bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 flex justify-center items-center min-h-screen">
+    <form action="/resume/generate" method="POST" class="bg-white p-8 rounded-lg shadow-md w-full max-w-lg">
+        <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Create Your Resume</h2>
+
+        <!-- Name -->
+        <label class="block text-gray-700 font-semibold">Full Name</label>
+        <input type="text" name="name" required class="border p-2 w-full mb-4 rounded-md">
+
+        <!-- Email -->
+        <label class="block text-gray-700 font-semibold">Email</label>
+        <input type="email" name="email" required class="border p-2 w-full mb-4 rounded-md">
+
+        <!-- Phone -->
+        <label class="block text-gray-700 font-semibold">Phone</label>
+        <input type="text" name="phone" required class="border p-2 w-full mb-4 rounded-md">
+
+        <!-- Address -->
+        <label class="block text-gray-700 font-semibold">Address</label>
+        <input type="text" name="address" required class="border p-2 w-full mb-4 rounded-md">
+
+        <!-- Profile Summary -->
+        <label class="block text-gray-700 font-semibold">Profile Summary</label>
+        <textarea name="summary" required class="border p-2 w-full mb-4 rounded-md"></textarea>
+
+        <!-- Skills -->
+        <label class="block text-gray-700 font-semibold">Skills (comma separated)</label>
+        <input type="text" name="skills" required class="border p-2 w-full mb-4 rounded-md">
+
+        <!-- Experience -->
+        <label class="block text-gray-700 font-semibold">Experience</label>
+        <div id="experience-container">
+            <div class="flex gap-2 mb-2">
+                <input type="text" name="experience_title[]" placeholder="Job Title" class="border p-2 w-full rounded-md">
+                <input type="text" name="experience_company[]" placeholder="Company" class="border p-2 w-full rounded-md">
+                <input type="text" name="experience_duration[]" placeholder="Duration" class="border p-2 w-full rounded-md">
+            </div>
+        </div>
+        <button type="button" onclick="addField('experience-container', 'experience', ['Job Title', 'Company', 'Duration'])"
+            class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm">+ Add More</button>
+
+        <!-- Education -->
+        <label class="block text-gray-700 font-semibold mt-4">Education</label>
+        <div id="education-container">
+            <div class="flex gap-2 mb-2">
+                <input type="text" name="education_degree[]" placeholder="Degree" class="border p-2 w-full rounded-md">
+                <input type="text" name="education_institution[]" placeholder="Institution" class="border p-2 w-full rounded-md">
+                <input type="text" name="education_year[]" placeholder="Year" class="border p-2 w-full rounded-md">
+            </div>
+        </div>
+        <button type="button" onclick="addField('education-container', 'education', ['Degree', 'Institution', 'Year'])"
+            class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm">+ Add More</button>
+
+        <!-- Projects -->
+        <label class="block text-gray-700 font-semibold mt-4">Projects</label>
+        <div id="projects-container">
+            <div class="flex gap-2 mb-2">
+                <input type="text" name="project_title[]" placeholder="Project Title" class="border p-2 w-full rounded-md">
+                <input type="text" name="project_description[]" placeholder="Description" class="border p-2 w-full rounded-md">
+            </div>
+        </div>
+        <button type="button" onclick="addField('projects-container', 'projects', ['Project Title', 'Description'])"
+            class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm">+ Add More</button>
+
+        <!-- Certifications -->
+        <label class="block text-gray-700 font-semibold mt-4">Certifications</label>
+        <div id="certifications-container">
+            <div class="flex gap-2 mb-2">
+                <input type="text" name="certification_name[]" placeholder="Certification Name" class="border p-2 w-full rounded-md">
+                <input type="text" name="certification_institution[]" placeholder="Institution" class="border p-2 w-full rounded-md">
+                <input type="text" name="certification_year[]" placeholder="Year" class="border p-2 w-full rounded-md">
+            </div>
+        </div>
+        <button type="button" onclick="addField('certifications-container', 'certifications', ['Certification Name', 'Institution', 'Year'])"
+            class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm">+ Add More</button>
+
+        <!-- Submit Button -->
+        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-lg w-full text-lg font-semibold mt-4">
+            Generate Resume
+        </button>
+    </form>
+</body>
+</html>

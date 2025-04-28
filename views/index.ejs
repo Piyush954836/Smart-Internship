@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Internship & Job Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script defer src="/js/animation.js"></script>
+    <style>
+        body {
+            background: linear-gradient(to right, #4ade80, #3b82f6);
+        }
+
+        canvas {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <nav class="bg-green-600 text-white py-4 shadow-lg">
+        <div class="max-w-screen-xl mx-auto flex flex-wrap justify-between items-center px-6">
+            <a href="/" class="text-xl font-bold hover:text-green-300">JobPortal</a>
+            <div class="space-x-4 flex flex-wrap">
+                <a href="/jobs" class="hover:underline hover:text-green-300">Jobs</a>
+                <a href="/internship/view-internship" class="hover:underline hover:text-green-300">Internships</a>
+                <button id="login-btn"
+                class="bg-green-500 text-white px-4 py-2 rounded-full hover:bg-blue-600">
+                Login
+            </button>
+            
+            <!-- Sliding Container -->
+            <div id="login-menu"
+            class="fixed inset-y-0 right-0 w-full sm:w-80 bg-white shadow-lg transform translate-x-full transition-transform duration-300 ease-in-out p-6 z-50 sm:rounded-l-lg">
+            <button id="close-menu" class="absolute top-4 right-4 text-gray-600 text-2xl">&#10006;</button>
+            <h2 class="text-center text-2xl font-semibold mb-4">Select Portal</h2>
+            <div class="flex flex-col space-y-4">
+                <a href="/user/login" class="portal-btn bg-blue-500 text-white py-3 px-4 rounded text-center">Student
+                    Portal</a>
+                <a href="/recruiter/login" class="portal-btn bg-green-500 text-white py-3 px-4 rounded text-center">Recruiter
+                    Portal</a>
+            </div>
+        </div>
+        
+        <!-- Overlay for background blur when menu is open -->
+        <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 hidden"></div>
+        
+
+            </div>
+        </div>
+    </nav>
+
+    <header class="text-white text-center py-20 relative overflow-hidden">
+        <canvas id="heroCanvas"></canvas>
+        <div class="relative z-10 px-6 max-w-3xl mx-auto">
+            <h1 class="text-4xl md:text-5xl font-extrabold animate-bounce">Find Your Dream Internship & Job</h1>
+            <p class="mt-4 text-lg">Smart AI-powered platform for Computer Science students</p>
+            <a href="/user/login"
+                class="mt-6 inline-block bg-white text-green-600 px-6 py-2 rounded-lg font-semibold hover:bg-gray-200">Get
+                Started</a>
+        </div>
+    </header>
+
+    <section class="container mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div onclick="window.location.href='/resume/build-resume'"
+            class="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition duration-300">
+            <h2 class="text-xl font-bold text-green-700">AI Resume Builder</h2>
+            <p class="mt-2 text-gray-600">Create optimized resumes with AI suggestions.</p>
+        </div>
+        
+        <div class="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition duration-300">
+            <h2 class="text-xl font-bold text-green-700">Mock Interviews</h2>
+            <p class="mt-2 text-gray-600">Practice with AI-powered interview questions.</p>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-white text-center py-6">
+        <p>&copy; 2025 Smart Internship & Job Portal | All Rights Reserved</p>
+    </footer>
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const loginBtns = document.querySelectorAll("#login-btn, #mobile-login-btn");
+            const loginMenu = document.getElementById("login-menu");
+            const closeMenu = document.getElementById("close-menu");
+            const overlay = document.getElementById("overlay");
+    
+            loginBtns.forEach(btn => {
+                btn.addEventListener("click", function () {
+                    loginMenu.classList.remove("translate-x-full");
+                    overlay.classList.remove("hidden");
+                });
+            });
+    
+            closeMenu.addEventListener("click", function () {
+                loginMenu.classList.add("translate-x-full");
+                overlay.classList.add("hidden");
+            });
+    
+            overlay.addEventListener("click", function () {
+                loginMenu.classList.add("translate-x-full");
+                overlay.classList.add("hidden");
+            });
+        });
+        // Responsive Three.js 3D Book Model Animation
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('heroCanvas'), alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        const bookGeometry = new THREE.BoxGeometry(3, 0.5, 4);
+        const bookMaterial = new THREE.MeshStandardMaterial({ color: 0x3b82f6, metalness: 0.7, roughness: 0.3 });
+        const book = new THREE.Mesh(bookGeometry, bookMaterial);
+        book.position.set(0, 0, 0);
+        scene.add(book);
+
+        const spineGeometry = new THREE.BoxGeometry(0.5, 3, 4);
+        const spineMaterial = new THREE.MeshStandardMaterial({ color: 0x4ade80 });
+        const bookSpine = new THREE.Mesh(spineGeometry, spineMaterial);
+        bookSpine.position.set(-1.5, 0, 0);
+        scene.add(bookSpine);
+
+        const light = new THREE.PointLight(0xffffff, 1.5);
+        light.position.set(10, 10, 10);
+        scene.add(light);
+
+        camera.position.z = 8;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            book.rotation.y += 0.01;
+            bookSpine.rotation.y += 0.01;
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Handle screen resizing
+        window.addEventListener("resize", () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+
+</html>

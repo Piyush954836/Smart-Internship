@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Internship Application</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+    .glassmorphism {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-purple-600 to-indigo-700 min-h-screen flex items-center justify-center">
+
+  <div class="max-w-4xl w-full p-8 rounded-lg shadow-xl glassmorphism">
+    <h2 class="text-3xl font-semibold text-white text-center mb-6">🚀 Apply for an Internship</h2>
+
+    <form action="/user/complete-profile" method="POST" enctype="multipart/form-data" class="space-y-4">
+      
+      <!-- Personal Details -->
+       
+
+      <div>
+        <label class="block text-white font-medium">📞 Phone Number</label>
+        <input type="tel" name="phone" class="w-full p-3 border rounded-md focus:ring-2 focus:ring-indigo-400" required>
+      </div>
+
+      <!-- Education -->
+      <div>
+        <label class="block text-white font-medium">🎓 Education</label>
+        <textarea name="education" class="w-full p-3 border rounded-md focus:ring-2 focus:ring-indigo-400"></textarea>
+      </div>
+
+      <!-- Work Experience -->
+      <div>
+        <label class="block text-white font-medium">💼 Work Experience</label>
+        <textarea name="experience" class="w-full p-3 border rounded-md focus:ring-2 focus:ring-indigo-400"></textarea>
+      </div>
+
+      <!-- Extra Curricular -->
+      <div>
+        <label class="block text-white font-medium">🏆 Extra Curricular Activities</label>
+        <textarea name="activities" class="w-full p-3 border rounded-md focus:ring-2 focus:ring-indigo-400"></textarea>
+      </div>
+
+      <!-- Training & Courses -->
+      <div>
+        <label class="block text-white font-medium">📚 Training & Courses</label>
+        <textarea name="training" class="w-full p-3 border rounded-md focus:ring-2 focus:ring-indigo-400"></textarea>
+      </div>
+
+      <!-- Projects -->
+      <div>
+        <label class="block text-white font-medium">🚀 Projects</label>
+        <textarea name="projects" class="w-full p-3 border rounded-md focus:ring-2 focus:ring-indigo-400"></textarea>
+      </div>
+
+      <!-- Skills -->
+      <div>
+        <label class="block text-white font-medium">💡 Skills</label>
+        <input type="text" name="skills" class="w-full p-3 border rounded-md focus:ring-2 focus:ring-indigo-400">
+      </div>
+
+      <!-- Portfolio & GitHub -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-white font-medium">🌐 Portfolio Link</label>
+          <input type="url" name="portfolio" class="w-full p-3 border rounded-md focus:ring-2 focus:ring-indigo-400">
+        </div>
+        <div>
+          <label class="block text-white font-medium">🐱 GitHub Profile</label>
+          <input type="url" name="github" class="w-full p-3 border rounded-md focus:ring-2 focus:ring-indigo-400">
+        </div>
+      </div>
+
+      <!-- Additional Details -->
+      <div>
+        <label class="block text-white font-medium">📝 Additional Details</label>
+        <textarea name="additional" class="w-full p-3 border rounded-md focus:ring-2 focus:ring-indigo-400"></textarea>
+      </div>
+
+      <!-- Upload Resume -->
+      <div>
+        <label class="block text-white font-medium">📄 Upload Resume</label>
+        <input type="file" name="resume" class="w-full p-3 border rounded-md focus:ring-2 focus:ring-indigo-400 bg-white">
+      </div>
+
+      <!-- Buttons -->
+      <div class="text-center mt-4 space-x-3">
+        <button type="submit" class="bg-indigo-500 text-white px-6 py-3 rounded-md text-lg hover:bg-indigo-600 transition transform hover:scale-105 shadow-md">
+          🚀 Submit Application
+        </button>
+        <button type="button" onclick="window.location.href='/resume/build-resume'" class="bg-green-500 text-white px-6 py-3 rounded-md text-lg hover:bg-green-600 transition transform hover:scale-105 shadow-md">
+          🛠️ Build Resume
+        </button>
+      </div>
+      
+    </form>
+  </div>
+
+</body>
+</html>

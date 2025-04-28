@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Generated Resume</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: whitesmoke;
+            font-family: 'Arial', sans-serif;
+        }
+        .resume-container {
+          background: linear-gradient(to right, #FFDEE9, #B5FFFC);
+          padding: 20px;
+            border-radius: 12px;
+            box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 800px;
+        }
+        .heading {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            background: linear-gradient(to right, #FFDEE9, #B5FFFC);
+            padding: 8px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        .section {
+            background: #fdfdfd;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.08);
+            margin-bottom: 15px;
+        }
+        .download-btn {
+            background-color: #6C63FF;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 15px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .download-btn:hover {
+            background-color: #5753C9;
+        }
+        /* Hide button in PDF */
+        .no-print {
+            display: block;
+        }
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="flex justify-center items-center min-h-screen">
+    <div id="resume-content" class="resume-container">
+        <h2 class="text-3xl font-bold text-center mb-4 text-gray-800">Your AI-Generated Resume</h2>
+
+        <% if (resume.fullName) { %>
+            <div class="section">
+                <h3 class="heading">Full Name</h3>
+                <p class="text-gray-700"><%= resume.fullName %></p>
+            </div>
+        <% } %>
+
+        <% if (resume.professionalSummary) { %>
+            <div class="section">
+                <h3 class="heading">Professional Summary</h3>
+                <p class="text-gray-700"><%= resume.professionalSummary %></p>
+            </div>
+        <% } %>
+
+        <% if (resume.skills && resume.skills.length > 0) { %>
+            <div class="section">
+                <h3 class="heading">Skills</h3>
+                <ul class="list-disc pl-5 text-gray-700">
+                    <% resume.skills.forEach(skill => { %>
+                        <li><%= skill %></li>
+                    <% }) %>
+                </ul>
+            </div>
+        <% } %>
+
+        <% if (resume.experience && resume.experience.length > 0) { %>
+            <div class="section">
+                <h3 class="heading">Experience</h3>
+                <% resume.experience.forEach(exp => { %>
+                    <div class="mb-4">
+                        <p class="font-semibold text-gray-800"><%= exp.position %> at <%= exp.company %></p>
+                        <p class="text-gray-600"><%= exp.years %></p>
+                        <p class="text-gray-700"><%= exp.description %></p>
+                    </div>
+                <% }) %>
+            </div>
+        <% } %>
+
+        <% if (resume.education && resume.education.length > 0) { %>
+            <div class="section">
+                <h3 class="heading">Education</h3>
+                <% resume.education.forEach(edu => { %>
+                    <div class="mb-4">
+                        <p class="font-semibold text-gray-800"><%= edu.degree %> - <%= edu.institution %></p>
+                        <p class="text-gray-600"><%= edu.year %></p>
+                    </div>
+                <% }) %>
+            </div>
+        <% } %>
+
+        <% if (resume.contact) { %>
+            <div class="section">
+                <h3 class="heading">Contact Information</h3>
+                <p class="text-gray-700">📧 Email: <%= resume.contact.email %></p>
+                <p class="text-gray-700">📞 Phone: <%= resume.contact.phone %></p>
+                <% if (resume.contact.linkedin) { %>
+                    <p class="text-gray-700">🔗 LinkedIn: <a href="<%= resume.contact.linkedin %>" target="_blank" class="text-blue-500 underline"><%= resume.contact.linkedin %></a></p>
+                <% } %>
+            </div>
+        <% } %>
+
+        <button onclick="downloadResumePDF()" class="download-btn no-print">Download Resume (PDF)</button>
+    </div>
+
+    <script>
+        function downloadResumePDF() {
+            const { jsPDF } = window.jspdf;
+            const resumeContent = document.getElementById("resume-content");
+
+            // Hide download button while generating PDF
+            document.querySelector('.download-btn').style.display = 'none';
+
+            html2canvas(resumeContent, { scale: 3 }).then(canvas => {
+                const pdf = new jsPDF("p", "mm", "a4");
+                const imgData = canvas.toDataURL("image/png");
+
+                const imgWidth = 210; // A4 width in mm
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+                pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+                pdf.save("AI_Generated_Resume.pdf");
+
+                // Show the download button again after generating the PDF
+                document.querySelector('.download-btn').style.display = 'inline-block';
+            });
+        }
+    </script>
+</body>
+</html>

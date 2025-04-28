@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-r from-green-300 via-blue-400 to-purple-400 text-gray-800 flex flex-col items-center justify-center min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md w-full py-4 px-6 flex justify-between items-center fixed top-0">
+        <h1 class="text-xl font-bold text-gray-800">User Profile</h1>
+        <button id="profileBtn" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition">
+            Profile
+        </button>
+    </nav>
+
+    <!-- Profile Card -->
+    <div class="bg-white shadow-lg rounded-lg p-6 w-96 text-center mt-20">
+      <img src="data:<%= user.profilePicture.contentType %>;base64,<%= user.profilePicture.data.toString('base64') %>" 
+      alt="Profile Picture" class="w-28 h-28 rounded-full border-4 border-blue-500 mx-auto mb-4">
+        
+        <h2 class="text-2xl font-bold"><%= user.fullName %></h2>
+        <p class="text-lg text-gray-600"><%= user.email %></p>
+        <p class="text-green-600 font-semibold mt-2">Joined on: <%= new Date(user.createdAt).toDateString() %></p>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const profileBtn = document.getElementById("profileBtn");
+
+            profileBtn.addEventListener("click", () => {
+                alert("Profile Button Clicked!");
+            });
+        });
+    </script>
+
+</body>
+</html>
+background: linear-gradient(to right, #FFDEE9, #B5FFFC);
+padding: 20px;
+            border-radius: 12px;
+            box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.15);
